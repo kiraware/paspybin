@@ -1,0 +1,100 @@
+[tool.poetry]
+name = "paspybin"
+version = "0.1.0"
+description = "Python Pastebin API Wrapper"
+authors = ["Kira <kiraware@github.com>"]
+packages = [
+    { include = "*", from = "src" }
+]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/kiraware/paspybin"
+repository = "https://github.com/kiraware/paspybin"
+documentation = "https://paspybin.readthedocs.io/en/latest/"
+keywords = ["pastebin", "api"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: AsyncIO",
+    "Framework :: aiohttp",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/kiraware/paspybin/issues"
+
+[tool.poetry.dependencies]
+aiohttp = "^3.9.1"
+defusedxml = "^0.7.1"
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+bandit = "^1.7.6"
+mypy = "^1.8.0"
+poethepoet = "^0.24.4"
+ruff = "^0.1.14"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.4"
+pytest-asyncio = "^0.23.3"
+pytest-cov = "^4.1.0"
+python-dotenv = "^1.0.1"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.5.3"
+mkdocs-material = "^9.5.4"
+mkdocstrings = {extras = ["python"], version = "^0.24.0"}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+backend-path = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-vvv --doctest-modules"
+testpaths = ["tests", "src"]
+asyncio_mode = "auto"
+
+[tool.poe.tasks]
+bandit = "bandit -r src tests -c pyproject.toml"
+mypy = "mypy --check src"
+ruff = "ruff --fix"
+lint = ["bandit", "mypy", "ruff"]
+format = "ruff format"
+test = "pytest --cov=src --cov-report=html"
+
+[tool.bandit.assert_used]
+skips = ["*_test.py", "*test_*.py"]
+
+[tool.ruff]
+exclude = [
+    ".venv",
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "venv",
+]
+line-length = 88
+target-version = "py311"
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+]
+ignore = []
+src = ["src", "tests"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[mypy]
+files = ["src"]
+strict_optional = false

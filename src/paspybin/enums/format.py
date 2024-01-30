@@ -27,7 +27,7 @@ class Format(StrEnum):
         APT_SOURCES: `"apt_sources"`, APT Sources
         ARDUINO: `"arduino"`, Arduino
         ARM: `"arm"`, ARM
-        ASM: `"asm"`, ASM (NASM) # NASM
+        ASM: `"asm"`, ASM (NASM)
         ASP: `"asp"`, ASP
         ASYMPTOTE: `"asymptote"`, Asymptote
         AUTOCONF: `"autoconf"`, autoconf

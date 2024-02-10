@@ -29,6 +29,9 @@ def parse_pastes(data: str) -> Iterator[Paste]:
     Yields:
         Some `Paste` schema.
 
+    Raises:
+        PaspybinParseError: if one or more required fields are not found.
+
     Examples:
     >>> data = (
     ...     "<paste>"
@@ -103,6 +106,9 @@ def parse_user(data: str) -> User:
 
     Returns:
         A `User` schema.
+
+    Raises:
+        PaspybinParseError: if one or more required fields are not found.
 
     Examples:
     >>> data = (

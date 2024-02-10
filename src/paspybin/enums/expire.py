@@ -12,7 +12,6 @@ class Expire(StrEnum):
 
     Attributes:
         NEVER: `"N"`, never expire
-        BURN: `"B"`, burn after read
         TEN_MINUTES: `"10M"`, expire after ten minutes
         ONE_HOUR: `"1H"`, expire after one hour
         ONE_DAY: `"1D"`, expire after one day
@@ -36,7 +35,6 @@ class Expire(StrEnum):
     """
 
     NEVER: str = "N"
-    BURN: str = "B"
     TEN_MINUTES: str = "10M"
     ONE_HOUR: str = "1H"
     ONE_DAY: str = "1D"

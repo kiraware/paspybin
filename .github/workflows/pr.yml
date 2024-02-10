@@ -54,6 +54,10 @@ jobs:
       - name: Format with Ruff
         run: poetry run ruff format --check
       - name: Test with pytest
+        env:
+          PASTEBIN_API_DEV_KEY: ${{ secrets.PASTEBIN_API_DEV_KEY }}
+          PASTEBIN_USERNAME: ${{ secrets.PASTEBIN_USERNAME }}
+          PASTEBIN_PASSWORD: ${{ secrets.PASTEBIN_PASSWORD }}
         run: poetry run pytest --cov=src --cov-report=xml
       - name: Build docs with Material for MkDocs
         run: poetry run mkdocs build

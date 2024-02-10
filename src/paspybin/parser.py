@@ -54,6 +54,9 @@ def parse_pastes(data: str) -> Iterator[Paste]:
     pastes: Element = fromstring(f"<pastes>{data}</pastes>")
 
     for paste in pastes:
+        if len(paste) < 10:
+            raise PaspybinParseError("one or more fields not found")
+
         paste_key = paste[0].text
         paste_date = paste[1].text
         paste_title = paste[2].text
@@ -132,6 +135,9 @@ def parse_user(data: str) -> User:
         `user_website` and `user_location` is optional.
     """
     user: Element = fromstring(data)
+
+    if len(user) < 9:
+        raise PaspybinParseError("one or more fields not found")
 
     user_name = user[0].text
     user_format_short = user[1].text

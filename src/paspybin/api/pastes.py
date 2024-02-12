@@ -63,8 +63,6 @@ class Pastes(API):
 
             if not response.ok:
                 raise PaspybinBadAPIRequestError(data)
-            elif data == "No pastes found.":
-                return
             else:
                 for paste in parse_pastes(data):
                     yield Paste(

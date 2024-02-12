@@ -51,6 +51,9 @@ def parse_pastes(data: str) -> Iterator[Paste]:
     >>> pastes
     <generator object parse_pastes at ...>
     """
+    if data == "No pastes found.":
+        return
+
     pastes: Element = fromstring(f"<pastes>{data}</pastes>")
 
     for paste in pastes:

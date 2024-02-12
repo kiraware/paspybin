@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from paspybin.exception import PaspybinParseError
+from paspybin.exceptions import PaspybinParseError
 from paspybin.parser import parse_user
 
 

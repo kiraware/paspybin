@@ -1,5 +1,5 @@
 from .. import schemas
-from ..exception import PaspybinBadAPIRequestError
+from ..exceptions import PaspybinBadAPIRequestError
 from ..parser import parse_user
 from .api import API
 

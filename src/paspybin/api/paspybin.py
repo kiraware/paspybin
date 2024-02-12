@@ -2,7 +2,7 @@ from traceback import TracebackException
 from types import TracebackType
 from typing import Self
 
-from ..exception import PaspybinBadAPIRequestError
+from ..exceptions import PaspybinBadAPIRequestError
 from ..types import DevKey
 from .api import API
 from .pastes import Pastes

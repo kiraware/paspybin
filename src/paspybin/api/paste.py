@@ -4,7 +4,7 @@ from aiohttp import ClientSession
 
 from .. import schemas
 from ..enums import Format, Visibility
-from ..exception import PaspybinBadAPIRequestError
+from ..exceptions import PaspybinBadAPIRequestError
 from ..types import DevKey, PastebinUrl, PasteKey, UserKey
 from .api import API
 

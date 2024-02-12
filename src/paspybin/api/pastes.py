@@ -2,7 +2,7 @@ from http import HTTPStatus
 from typing import Any, AsyncIterator
 
 from ..enums import Expire, Format, Visibility
-from ..exception import PaspybinBadAPIRequestError, PaspybinNotFoundError
+from ..exceptions import PaspybinBadAPIRequestError, PaspybinNotFoundError
 from ..parser import parse_pastes
 from ..types import FolderKey, PasteKey
 from .api import API

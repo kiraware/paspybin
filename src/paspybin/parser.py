@@ -10,7 +10,7 @@ from xml.etree.ElementTree import Element  # nosec B405
 from defusedxml.ElementTree import fromstring  # type: ignore
 
 from .enums import Expire, Format, Type, Visibility
-from .exception import PaspybinParseError
+from .exceptions import PaspybinParseError
 from .schemas import Paste, User
 
 __all__ = [

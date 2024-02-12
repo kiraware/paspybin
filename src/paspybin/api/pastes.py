@@ -95,7 +95,6 @@ class Pastes(API):
 
         Examples:
             >>> import asyncio
-            >>> import os
             >>> from paspybin import Paspybin
             >>> async def main():
             ...     async with Paspybin() as paspybin:

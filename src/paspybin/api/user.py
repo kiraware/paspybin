@@ -1,6 +1,6 @@
 from .. import schemas
 from ..exceptions import PaspybinBadAPIRequestError
-from ..parser import parse_user
+from ..parsers import parse_user
 from .api import API
 
 __all__ = ["User"]

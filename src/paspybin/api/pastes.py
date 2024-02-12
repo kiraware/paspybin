@@ -3,7 +3,7 @@ from typing import Any, AsyncIterator
 
 from ..enums import Expire, Format, Visibility
 from ..exceptions import PaspybinBadAPIRequestError, PaspybinNotFoundError
-from ..parser import parse_pastes
+from ..parsers import parse_pastes
 from ..types import FolderKey, PasteKey
 from .api import API
 from .paste import Paste

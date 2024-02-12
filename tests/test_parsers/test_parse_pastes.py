@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from paspybin.exceptions import PaspybinParseError
-from paspybin.parser import parse_pastes
+from paspybin.parsers import parse_pastes
 
 
 def test_parse_pastes_with_invalid_fields_length():

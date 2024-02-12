@@ -10,7 +10,7 @@ def test_parse_pastes_with_invalid_fields_length():
     paste = MagicMock()
     paste.__len__.return_value = 9
 
-    with patch("paspybin.parser.fromstring", return_value=[paste]):
+    with patch("paspybin.parsers.fromstring", return_value=[paste]):
         with pytest.raises(
             PaspybinParseError,
             match="one or more fields not found",
@@ -42,7 +42,7 @@ def test_parse_pastes_with_invalid_field(index, err_msg):
     paste.__len__.return_value = 10
     paste.__getitem__.side_effect = lambda idx: field if idx == index else MagicMock()
 
-    with patch("paspybin.parser.fromstring", return_value=[paste]):
+    with patch("paspybin.parsers.fromstring", return_value=[paste]):
         with pytest.raises(
             PaspybinParseError,
             match=err_msg,

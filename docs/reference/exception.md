@@ -1,0 +1,1 @@
+::: paspybin.exceptions

@@ -16,6 +16,7 @@ class User(API):
 
         Raises:
             PaspybinBadAPIRequestError: if a bad request is sent to the API.
+            ValueError: if dev_key not supplied.
             ValueError: if guest use this method.
 
         Examples:
@@ -32,6 +33,9 @@ class User(API):
             >>> asyncio.run(main())
             User(...)
         """
+        if self._dev_key is None:
+            raise ValueError("dev_key is required to use this method")
+
         if not self.is_authenticated():
             raise ValueError("only logged in users can access user details")
 

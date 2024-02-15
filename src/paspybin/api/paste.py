@@ -80,7 +80,6 @@ class Paste(API, schemas.Paste):
 
         Raises:
             PaspybinBadAPIRequestError: if a bad request is sent to the API.
-            ValueError: if guest use this method.
 
         Examples:
             >>> import asyncio
@@ -97,9 +96,6 @@ class Paste(API, schemas.Paste):
             ...             # do what you want to do with paste content here
             >>> asyncio.run(main())
         """
-        if not self.is_authenticated():
-            raise ValueError("only logged in users can delete its own paste")
-
         payload = {
             "api_dev_key": self._dev_key,
             "api_option": "show_paste",

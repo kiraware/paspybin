@@ -26,7 +26,7 @@ class Paste:
 
     key: PasteKey
     date: datetime
-    title: str
+    title: str | None
     size: int
     expire_date: datetime
     private: Visibility

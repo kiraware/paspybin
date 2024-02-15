@@ -24,11 +24,9 @@ def test_parse_pastes_with_invalid_fields_length():
     (
         (0, "paste_key value not found"),
         (1, "paste_date value not found"),
-        (2, "paste_title value not found"),
         (3, "paste_size value not found"),
         (4, "paste_expire_date value not found"),
         (5, "paste_private value not found"),
-        # (6, ""),
         (7, "paste_format_short value not found"),
         (8, "paste_url value not found"),
         (9, "paste_hits value not found"),

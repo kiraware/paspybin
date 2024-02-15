@@ -75,8 +75,6 @@ def parse_pastes(data: str) -> Iterator[Paste]:
             raise PaspybinParseError("paste_key value not found")
         elif paste_date is None:
             raise PaspybinParseError("paste_date value not found")
-        elif paste_title is None:
-            raise PaspybinParseError("paste_title value not found")
         elif paste_size is None:
             raise PaspybinParseError("paste_size value not found")
         elif paste_expire_date is None:

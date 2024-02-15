@@ -107,6 +107,6 @@ pythonpath = [
     ".",
     "src",
 ]
-testpaths = ["tests", "src"]
+testpaths = ["tests"]
 asyncio_mode = "auto"
 env_files = [".env"]

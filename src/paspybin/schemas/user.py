@@ -20,9 +20,6 @@ class User:
         email: email of user
         location: location of user
         account_type: account type of user
-
-    Note:
-        `website` and `location` field is optional.
     """
 
     name: str

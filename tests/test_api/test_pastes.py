@@ -83,6 +83,26 @@ async def test_pastes_get_all_with_guest():
                 pass
 
 
+async def test_pastes_get_all_of_logged_in_user_when_limit_is_valid():
+    with patch("paspybin.api.api.ClientSession.post") as mocked:
+        async with Paspybin("dev_key") as paspybin:
+            mocked.return_value.__aenter__.return_value.text.return_value = "user_key"
+            await paspybin.login("username", "password")
+
+            async for paste in paspybin.pastes.get_all(50):
+                pass
+
+        mocked.assert_called_with(
+            "/api/api_post.php",
+            data={
+                "api_dev_key": "dev_key",
+                "api_option": "list",
+                "api_user_key": "user_key",
+                "api_results_limit": 50,
+            },
+        )
+
+
 @pytest.mark.parametrize("limit", (0, 1001))
 async def test_pastes_get_all_of_logged_in_user_but_limit_is_invalid(limit):
     with patch("paspybin.api.api.ClientSession.post") as mocked:

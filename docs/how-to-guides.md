@@ -90,6 +90,14 @@ For example, environment variables are found in the `.env.example`
 file. You can change the value according to what you have and save
 it in the root of the project directory with the file name `.env`.
 
+We have a doctest in src that we don't run tests by default because
+it's for testing code examples in the docstring. Because the code
+example uses real API calls without mocks, it can cause the test to
+reach the API call rate limit. To run doctest, just open the
+pyproject.toml file and look in the configuration for pytest in the
+testpaths section there is only a tests folder, you can add the src
+folder and run the test normally to run doctest in src.
+
 ### Documenting
 
 We use [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)

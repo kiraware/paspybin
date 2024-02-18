@@ -3,6 +3,10 @@ name = "paspybin"
 version = "0.1.0"
 description = "Python Pastebin API Wrapper"
 authors = ["Kira <kiraware@github.com>"]
+maintainers = [
+    "Kira <kiraware@github.com>",
+    "vexra <vexra@github.com>",
+]
 packages = [
     { include = "*", from = "src" }
 ]

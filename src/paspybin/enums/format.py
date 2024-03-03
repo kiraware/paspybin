@@ -1,6 +1,7 @@
 """
 Module to store a str enum class representation the syntax highlighting format.
 """
+
 from enum import StrEnum
 
 __all__ = ["Format"]

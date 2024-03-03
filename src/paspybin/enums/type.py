@@ -1,6 +1,7 @@
 """
 Module to store an int enum class representation account type.
 """
+
 from enum import IntEnum
 
 __all__ = ["Type"]

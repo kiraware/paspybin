@@ -1,6 +1,7 @@
 """
 Module to store common enum classes used by pastebin.
 """
+
 from .expire import Expire
 from .format import Format
 from .type import Type

@@ -5,9 +5,7 @@ from datetime import datetime
 # Element is used only for typing not parsing
 from xml.etree.ElementTree import Element  # nosec B405
 
-# FIXME
-# remove `type: ignore` if there is a stub for defusedxml
-from defusedxml.ElementTree import fromstring  # type: ignore
+from defusedxml.ElementTree import fromstring
 
 from .enums import Expire, Format, Type, Visibility
 from .exceptions import PaspybinParseError

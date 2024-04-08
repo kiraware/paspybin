@@ -64,7 +64,7 @@ async def test_user_get_detail_without_dev_key():
 async def test_user_get_detail_with_guest():
     async with Paspybin("dev_key") as paspybin:
         with pytest.raises(
-            ValueError, match="only logged in users can access user details"
+            ValueError, match="only logged in users can use this method"
         ):
             await paspybin.user.get_detail()
 

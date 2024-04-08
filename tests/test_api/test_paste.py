@@ -112,6 +112,20 @@ async def test_paste_delete():
         )
 
 
+async def test_paste_delete_without_dev_key():
+    async with Paste() as paste:
+        with pytest.raises(ValueError, match="dev_key is required to use this method"):
+            await paste.delete()
+
+
+async def test_paste_delete_with_guest():
+    async with Paste("dev_key") as paste:
+        with pytest.raises(
+            ValueError, match="only logged in users can use this method"
+        ):
+            await paste.delete()
+
+
 async def test_paste_delete_fail():
     with patch("paspybin.api.api.ClientSession.post") as mocked:
         async with Paspybin("dev_key") as paspybin:
@@ -187,6 +201,20 @@ async def test_paste_get_content():
                 "api_user_key": "user_key",
             },
         )
+
+
+async def test_paste_get_content_without_dev_key():
+    async with Paste() as paste:
+        with pytest.raises(ValueError, match="dev_key is required to use this method"):
+            await paste.get_content()
+
+
+async def test_paste_get_content_with_guest():
+    async with Paste("dev_key") as paste:
+        with pytest.raises(
+            ValueError, match="only logged in users can use this method"
+        ):
+            await paste.get_content()
 
 
 async def test_paste_get_content_fail():

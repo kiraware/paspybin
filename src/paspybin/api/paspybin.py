@@ -1,9 +1,7 @@
-from traceback import TracebackException
-from types import TracebackType
-from typing import Self
+from aiohttp import ClientSession
 
 from ..exceptions import PaspybinBadAPIRequestError
-from ..types import DevKey
+from ..types import DevKey, UserKey
 from .api import API
 from .pastes import Pastes
 from .user import User
@@ -18,26 +16,16 @@ class Paspybin(API):
     Main Pastebin API class.
     """
 
-    def __init__(self, dev_key: DevKey | None = None):
-        API.__init__(self, dev_key)
+    def __init__(
+        self,
+        dev_key: DevKey | None = None,
+        user_key: UserKey | None = None,
+        session: ClientSession | None = None,
+    ):
+        API.__init__(self, dev_key, user_key, session)
 
         self.user = User(self._dev_key, self._user_key, self._session)
         self.pastes = Pastes(self._dev_key, self._user_key, self._session)
-
-    async def __aenter__(self) -> Self:
-        return self
-
-    async def __aexit__(
-        self,
-        exc_type: Exception,
-        exc_val: TracebackException,
-        traceback: TracebackType,
-    ) -> None:
-        await self.close()
-
-    async def close(self) -> None:
-        if self._session is not None:
-            await self._session.close()
 
     async def login(self, username: str, password: str) -> None:
         """

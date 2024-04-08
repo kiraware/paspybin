@@ -77,7 +77,7 @@ async def test_pastes_get_all_without_dev_key():
 async def test_pastes_get_all_with_guest():
     async with Paspybin("dev_key") as paspybin:
         with pytest.raises(
-            ValueError, match="only logged in users can access the paste list"
+            ValueError, match="only logged in users can use this method"
         ):
             async for paste in paspybin.pastes.get_all():
                 pass

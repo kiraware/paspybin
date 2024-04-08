@@ -19,14 +19,14 @@ class Paste(API, schemas.Paste):
     def __init__(
         self,
         key: PasteKey,
-        date: datetime,
-        title: str,
-        size: int,
-        expire_date: datetime,
-        private: Visibility,
-        format: Format,
-        url: PastebinUrl,
-        hits: int,
+        date: datetime | None = None,
+        title: str | None = None,
+        size: int | None = None,
+        expire_date: datetime | None = None,
+        private: Visibility | None = None,
+        format: Format | None = None,
+        url: PastebinUrl | None = None,
+        hits: int | None = None,
         dev_key: DevKey | None = None,
         user_key: UserKey | None = None,
         session: ClientSession | None = None,
@@ -42,6 +42,8 @@ class Paste(API, schemas.Paste):
 
         Raises:
             PaspybinBadAPIRequestError: if a bad request is sent to the API.
+            ValueError: if dev_key not supplied.
+            ValueError: if guest use this method.
 
         Examples:
             >>> import asyncio
@@ -58,6 +60,12 @@ class Paste(API, schemas.Paste):
             ...             pass
             >>> asyncio.run(main())
         """
+        if self._dev_key is None:
+            raise ValueError("dev_key is required to use this method")
+
+        if not self.is_authenticated():
+            raise ValueError("only logged in users can use this method")
+
         payload = {
             "api_dev_key": self._dev_key,
             "api_option": "delete",
@@ -80,6 +88,8 @@ class Paste(API, schemas.Paste):
 
         Raises:
             PaspybinBadAPIRequestError: if a bad request is sent to the API.
+            ValueError: if dev_key not supplied.
+            ValueError: if guest use this method.
 
         Examples:
             >>> import asyncio
@@ -96,6 +106,12 @@ class Paste(API, schemas.Paste):
             ...             # do what you want to do with paste content here
             >>> asyncio.run(main())
         """
+        if self._dev_key is None:
+            raise ValueError("dev_key is required to use this method")
+
+        if not self.is_authenticated():
+            raise ValueError("only logged in users can use this method")
+
         payload = {
             "api_dev_key": self._dev_key,
             "api_option": "show_paste",

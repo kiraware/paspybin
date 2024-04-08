@@ -37,7 +37,7 @@ class User(API):
             raise ValueError("dev_key is required to use this method")
 
         if not self.is_authenticated():
-            raise ValueError("only logged in users can access user details")
+            raise ValueError("only logged in users can use this method")
 
         payload = {
             "api_dev_key": self._dev_key,

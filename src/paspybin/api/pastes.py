@@ -48,7 +48,7 @@ class Pastes(API):
             raise ValueError("dev_key is required to use this method")
 
         if not self.is_authenticated():
-            raise ValueError("only logged in users can access the paste list")
+            raise ValueError("only logged in users can use this method")
 
         payload: dict[str, Any] = {
             "api_dev_key": self._dev_key,

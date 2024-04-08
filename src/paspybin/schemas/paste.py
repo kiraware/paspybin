@@ -22,14 +22,20 @@ class Paste:
         format: syntax highlighting format of paste
         url: url location of paste
         hits: views count of paste
+
+    Note:
+        It is actually impossible for the fields `date`, `size`, `expire_date`,
+        `private`,`format`, `url`, and `hits` to have the value `None` based on the API
+        documentation, however, to make it easier to use the API wrapper so that it is
+        more flexible, these fields are made so that they can contain the value `None`.
     """
 
     key: PasteKey
-    date: datetime
+    date: datetime | None
     title: str | None
-    size: int
-    expire_date: datetime
-    private: Visibility
-    format: Format
-    url: PastebinUrl
-    hits: int
+    size: int | None
+    expire_date: datetime | None
+    private: Visibility | None
+    format: Format | None
+    url: PastebinUrl | None
+    hits: int | None

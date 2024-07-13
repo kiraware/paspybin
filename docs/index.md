@@ -63,7 +63,7 @@ following links:
 ## Contributing
 
 We welcome contributions to enhance paspybin! Please review our
-[contributing guidelines](https://paspybin.readthedocs.io/en/latest/how-to-guides/#contributing).
+[contributing guidelines](how-to-guides.md/#contributing).
 before getting started.
 
 ## Acknowledgements

@@ -1,7 +1,7 @@
 # paspybin
 
 [![CI](https://github.com/kiraware/paspybin/workflows/ci/badge.svg)](https://github.com/kiraware/paspybin/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/kiraware/paspybin/workflows/codeql/badge.svg)](https://github.com/kiraware/paspybin/actions/workflows/codeql.yml)
+[![CodeQL](https://github.com/kiraware/paspybin/workflows/CodeQL/badge.svg)](https://github.com/kiraware/paspybin/actions/workflows/codeql.yml)
 [![Docs](https://readthedocs.org/projects/paspybin/badge/?version=latest)](https://paspybin.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/kiraware/paspybin/graph/badge.svg?token=PH6EUFT4V0)](https://codecov.io/gh/kiraware/paspybin)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -10,18 +10,46 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![pypi](https://img.shields.io/pypi/v/paspybin.svg)](https://pypi.org/project/paspybin/)
 [![python](https://img.shields.io/pypi/pyversions/paspybin.svg)](https://pypi.org/project/paspybin/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/license/mit/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/license/MIT/)
 
-The `paspybin` project is an asynchronous api wrapper
-written in Python for [Pastebin API](https://pastebin.com/doc_api).
-paspybin was created to make it easier for users to use the API
-provided by Pastebin asynchronously.
+`paspybin` is an asynchronous API wrapper for the
+[Pastebin API](https://pastebin.com/doc_api), designed to streamline
+interaction with Pastebin's services in Python. It enables users to
+leverage Pastebin's functionality asynchronously, enhancing performance
+and usability.
 
-We use the third party library [aiohttp](https://docs.aiohttp.org/en/stable/)
-for asynchronous client requests and it has been tested
-to work well using the [asyncio](https://docs.python.org/3/library/asyncio.html)
-library. Also it use [dataclass](https://docs.python.org/3/library/dataclasses.html)
-as the schema.
+## Key Features
+
+- **Asynchronous Operations:** Utilizes `asyncio` and `aiohttp` for efficient API requests.
+- **Data Schema:** Built with Python's `dataclass` for clear and structured data representation.
+- **Comprehensive Documentation:** Explore detailed [documentation](https://paspybin.readthedocs.io/en/latest/) for seamless integration and usage.
+
+## Installation
+
+```bash
+pip install paspybin
+```
+
+## Usage
+
+```python
+import asyncio
+import os
+
+from paspybin import Paspybin
+
+PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+PASTEBIN_USERNAME = os.environ["PASTEBIN_USERNAME"]
+PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
+
+async def main():
+    async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
+        await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
+        async for paste in paspybin.pastes.get_all():
+            print(paste)
+
+asyncio.run(main())
+```
 
 ## Docs
 
@@ -29,8 +57,9 @@ You can start reading the documentation [here](https://paspybin.readthedocs.io/e
 
 ## Contributing
 
-Glad to hear you want to contribute to paspybin. Please see
+We welcome contributions to enhance paspybin! Please review our
 [contributing guidelines](https://paspybin.readthedocs.io/en/latest/how-to-guides/#contributing).
+before getting started.
 
 ## Acknowledgements
 

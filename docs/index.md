@@ -1,6 +1,6 @@
 # paspybin
 
-[![CI](https://github.com/kiraware/paspybin/workflows/ci/badge.svg)](https://github.com/kiraware/paspybin/actions/workflows/ci.yml)
+[![Test](https://github.com/kiraware/paspybin/workflows/test/badge.svg)](https://github.com/kiraware/paspybin/actions/workflows/test.yml)
 [![CodeQL](https://github.com/kiraware/paspybin/workflows/CodeQL/badge.svg)](https://github.com/kiraware/paspybin/actions/workflows/codeql.yml)
 [![Docs](https://readthedocs.org/projects/paspybin/badge/?version=latest)](https://paspybin.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/kiraware/paspybin/graph/badge.svg?token=PH6EUFT4V0)](https://codecov.io/gh/kiraware/paspybin)

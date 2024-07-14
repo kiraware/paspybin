@@ -12,19 +12,27 @@ pip install paspybin
 
 All done!
 
-## Pastes API
+## Paspybin API
 
-There are three APIs available for pastes
-namely get_all, get_content, and create_paste.
+There are two APIs available for paspybin
+namely login and logout.
 
-### get_all
+### login
 
-get_all is used to get all pastes. Use this method
-to get a list of pastes owned by a user. Therefore,
-to use this method you are required to log in
-first. Read get_all
-[reference](reference/api.md/#paspybin.api.Pastes.get_all)
+login is used to get user_key from Pastebin API and
+authenticate all the paspybin interface. Use this method
+to authenticate paspybin interface. Read login
+[reference](reference/api.md/#paspybin.api.Paspybin.login)
 for more details.
+
+!!! tip
+    Because Pastebin API has API rate limiting, and Pastebin stated
+    !!! quote
+        Only one key can be active at the same time for the same user.
+        This key does not expire, unless a new one is generated.
+    Hence it's better to store the user_key somewhere so that you
+    can use it multiple times to avoid API rate limiting caused by
+    login called multiple times.
 
 Code example:
 
@@ -42,6 +50,63 @@ PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
 async def main():
     async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
         await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
+        # Save the Pastebin user_key somewhere else
+        print(paspybin._user_key)
+
+
+asyncio.run(main())
+```
+
+Example output:
+
+```console
+r4nd0m5tr1n9u53rk3y
+```
+
+### logout
+
+logout is used to deauthenticate all the paspybin interface.
+This method usefull if you already authenticate paspybin with
+provided user_key or by calling login method to become guest
+user. This method is not calling Pastebin API. Read logout
+[reference](reference/api.md/#paspybin.api.Paspybin.login)
+for more details.
+
+Code example:
+
+```python
+...
+paspybin.logout()
+```
+
+## Pastes API
+
+There are three APIs available for pastes
+namely get_all, get_content, and create_paste.
+
+### get_all
+
+get_all is used to get all pastes. Use this method
+to get a list of pastes owned by a user. Therefore,
+to use this method you are required to log in or
+just used the user_key you already has. Read get_all
+[reference](reference/api.md/#paspybin.api.Pastes.get_all)
+for more details.
+
+Code example:
+
+```python
+import asyncio
+import os
+
+from paspybin import Paspybin
+
+PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+
+
+async def main():
+    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
         async for paste in paspybin.pastes.get_all():
             print(paste)
 
@@ -108,11 +173,12 @@ import os
 from paspybin import Paspybin
 
 PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+# PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
 async def main():
+    # async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
     async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
-        # await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
         paste_content = "some paste content"
         await paspybin.pastes.create_paste(paste_content)
 
@@ -191,13 +257,11 @@ import os
 from paspybin import Paspybin
 
 PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_USERNAME = os.environ["PASTEBIN_USERNAME"]
-PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
+PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
 async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
-        await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
+    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
         async for paste in paspybin.pastes.get_all():
             paste_content = await paste.get_content()
             print(paste_content)
@@ -221,6 +285,9 @@ for more details.
 
 Code example:
 
+!!! warning
+    This code will delete all your pastes!
+
 ```python
 import asyncio
 import os
@@ -228,13 +295,11 @@ import os
 from paspybin import Paspybin
 
 PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_USERNAME = os.environ["PASTEBIN_USERNAME"]
-PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
+PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
 async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
-        await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
+    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
         async for paste in paspybin.pastes.get_all():
             paste.delete()
 
@@ -262,13 +327,11 @@ import os
 from paspybin import Paspybin
 
 PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_USERNAME = os.environ["PASTEBIN_USERNAME"]
-PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
+PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
 async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
-        await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
+    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
         user_detail = await paspybin.user.get_detail()
         print(user_detail)
 

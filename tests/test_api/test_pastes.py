@@ -157,6 +157,21 @@ async def test_pastes_get_all_of_logged_in_user_when_limit_is_valid():
             mocked.return_value.__aenter__.return_value.text.return_value = "user_key"
             await paspybin.login("username", "password")
 
+            mocked.return_value.__aenter__.return_value.text.return_value = (
+                "<paste>"
+                "<paste_key>0b42rwhf</paste_key>"
+                "<paste_date>1297953260</paste_date>"
+                "<paste_title>javascript test</paste_title>"
+                "<paste_size>15</paste_size>"
+                "<paste_expire_date>1297956860</paste_expire_date>"
+                "<paste_private>0</paste_private>"
+                "<paste_format_long>JavaScript</paste_format_long>"
+                "<paste_format_short>javascript</paste_format_short>"
+                "<paste_url>https://pastebin.com/0b42rwhf</paste_url>"
+                "<paste_hits>15</paste_hits>"
+                "</paste>"
+            )
+
             async for paste in paspybin.pastes.get_all(50):
                 pass
 
@@ -174,6 +189,21 @@ async def test_pastes_get_all_of_logged_in_user_when_limit_is_valid():
 async def test_direct_pastes_get_all_of_logged_in_user_when_limit_is_valid():
     with patch("paspybin.api.api.ClientSession.post") as mocked:
         async with Pastes("dev_key", "user_key") as pastes:
+            mocked.return_value.__aenter__.return_value.text.return_value = (
+                "<paste>"
+                "<paste_key>0b42rwhf</paste_key>"
+                "<paste_date>1297953260</paste_date>"
+                "<paste_title>javascript test</paste_title>"
+                "<paste_size>15</paste_size>"
+                "<paste_expire_date>1297956860</paste_expire_date>"
+                "<paste_private>0</paste_private>"
+                "<paste_format_long>JavaScript</paste_format_long>"
+                "<paste_format_short>javascript</paste_format_short>"
+                "<paste_url>https://pastebin.com/0b42rwhf</paste_url>"
+                "<paste_hits>15</paste_hits>"
+                "</paste>"
+            )
+
             async for paste in pastes.get_all(50):
                 pass
 

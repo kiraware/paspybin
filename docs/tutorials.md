@@ -21,8 +21,8 @@ namely login and logout.
 
 login is used to get user_key from Pastebin API and
 authenticate all the paspybin interface. Use this method
-to authenticate paspybin interface. Read login
-[reference](reference/api.md/#paspybin.api.Paspybin.login)
+to authenticate paspybin interface. Read
+[login reference](reference/api.md/#paspybin.api.Paspybin.login)
 for more details.
 
 !!! tip
@@ -34,50 +34,50 @@ for more details.
     can use it multiple times to avoid API rate limiting caused by
     login called multiple times.
 
-Code example:
+!!! example
 
-```python
-import asyncio
-import os
+    ```python
+    import asyncio
+    import os
 
-from paspybin import Paspybin
+    from paspybin import Paspybin
 
-PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_USERNAME = os.environ["PASTEBIN_USERNAME"]
-PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
-
-
-async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
-        await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
-        # Save the Pastebin user_key somewhere else
-        print(paspybin._user_key)
+    PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+    PASTEBIN_USERNAME = os.environ["PASTEBIN_USERNAME"]
+    PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
 
 
-asyncio.run(main())
-```
+    async def main():
+        async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
+            await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
+            # Save the Pastebin user_key somewhere else
+            print(paspybin._user_key)
 
-Example output:
 
-```console
-r4nd0m5tr1n9u53rk3y
-```
+    asyncio.run(main())
+    ```
+
+    Output:
+
+    ```console
+    r4nd0m5tr1n9u53rk3y
+    ```
 
 ### logout
 
 logout is used to deauthenticate all the paspybin interface.
 This method usefull if you already authenticate paspybin with
 provided user_key or by calling login method to become guest
-user. This method is not calling Pastebin API. Read logout
-[reference](reference/api.md/#paspybin.api.Paspybin.login)
+user. This method is not calling Pastebin API. Read
+[logout reference](reference/api.md/#paspybin.api.Paspybin.login)
 for more details.
 
-Code example:
+!!! example
 
-```python
-...
-paspybin.logout()
-```
+    ```python
+    ...
+    paspybin.logout()
+    ```
 
 ## Pastes API
 
@@ -89,37 +89,60 @@ namely get_all, get_content, and create_paste.
 get_all is used to get all pastes. Use this method
 to get a list of pastes owned by a user. Therefore,
 to use this method you are required to log in or
-just used the user_key you already has. Read get_all
-[reference](reference/api.md/#paspybin.api.Pastes.get_all)
+just used the user_key you already has. Read
+[get_all reference](reference/api.md/#paspybin.api.Pastes.get_all)
 for more details.
 
-Code example:
+!!! example
 
-```python
-import asyncio
-import os
+    === "Facade"
 
-from paspybin import Paspybin
+        ```python
+        import asyncio
+        import os
 
-PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+        from paspybin import Paspybin
 
-
-async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
-        async for paste in paspybin.pastes.get_all():
-            print(paste)
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
-asyncio.run(main())
-```
+        async def main():
+            async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
+                async for paste in paspybin.pastes.get_all():
+                    print(paste)
 
-Example output:
 
-```console
-Paste(key='gS5N2xdg', date=datetime.datetime(2024, 1, 26, 16, 32, 22), title='NONE', size=4, expire_date=datetime.datetime(1970, 1, 1, 8, 0), private=<Visibility.PUBLIC: 0>, format=<Format.NONE: 'text'>, url='https://pastebin.com/gS5N2xdg', hits=3)
-...
-```
+        asyncio.run(main())
+        ```
+
+    === "Non Facade"
+
+        ```python
+        import asyncio
+        import os
+
+        from paspybin.api import Pastes
+
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+
+
+        async def main():
+            async with Pastes(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as pastes:
+                async for paste in pastes.get_all():
+                    print(paste)
+
+
+        asyncio.run(main())
+        ```
+
+    Output:
+
+    ```console
+    Paste(key='gS5N2xdg', date=datetime.datetime(2024, 1, 26, 16, 32, 22), title='NONE', size=4, expire_date=datetime.datetime(1970, 1, 1, 8, 0), private=<Visibility.PUBLIC: 0>, format=<Format.NONE: 'text'>, url='https://pastebin.com/gS5N2xdg', hits=3)
+    ...
+    ```
 
 ### get_content
 
@@ -128,63 +151,107 @@ the given paste_key. This method should be used when
 you want to get pasted content belonging to other people
 that is public or unlisted or get pasted content without
 logging in, aka guest mode. To use this method, you
-don't need a dev_key. Read get_content
-[reference](reference/api.md/#paspybin.api.Pastes.get_content)
+don't need a dev_key. Read
+[get_content reference](reference/api.md/#paspybin.api.Pastes.get_content)
 for more details.
 
-Code example:
+!!! example
 
-```python
-import asyncio
+    === "Facade"
 
-from paspybin import Paspybin
+        ```python
+        import asyncio
 
-
-async def main():
-    async with Paspybin() as paspybin:
-        paste_key = "0C343n0d"
-        paste_content = await paspybin.pastes.get_content(paste_key)
-        print(paste_content)
+        from paspybin import Paspybin
 
 
-asyncio.run(main())
-```
+        async def main():
+            async with Paspybin() as paspybin:
+                paste_key = "0C343n0d"
+                paste_content = await paspybin.pastes.get_content(paste_key)
+                print(paste_content)
 
-Example output:
 
-```console
-Hi, and welcome to Pastebin.
-...
-```
+        asyncio.run(main())
+        ```
+
+    === "Non Facade"
+
+        ```python
+        import asyncio
+
+        from paspybin.api import Pastes
+
+
+        async def main():
+            async with Pastes() as pastes:
+                paste_key = "0C343n0d"
+                paste_content = await pastes.get_content(paste_key)
+                print(paste_content)
+
+
+        asyncio.run(main())
+        ```
+
+    Output:
+
+    ```console
+    Hi, and welcome to Pastebin.
+    ...
+    ```
 
 ### create_paste
 
 create_paste is used to create pastes for both guests and
-logged in users. Read create_paste
-[reference](reference/api.md/#paspybin.api.Pastes.create_paste)
+logged in users. Read
+[create_paste reference](reference/api.md/#paspybin.api.Pastes.create_paste)
 for more details.
 
-Code example:
+!!! example
 
-```python
-import asyncio
-import os
+    === "Facade"
 
-from paspybin import Paspybin
+        ```python
+        import asyncio
+        import os
 
-PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-# PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+        from paspybin import Paspybin
 
-
-async def main():
-    # async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
-    async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
-        paste_content = "some paste content"
-        await paspybin.pastes.create_paste(paste_content)
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        # PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
-asyncio.run(main())
-```
+        async def main():
+            # async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
+            async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
+                paste_key = await paspybin.pastes.create_paste("some paste content")
+                print(paste_key)
+
+
+        asyncio.run(main())
+        ```
+
+    === "Non Facade"
+
+        ```python
+        import asyncio
+        import os
+
+        from paspybin.api import Pastes
+
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        # PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+
+
+        async def main():
+            # async with Pastes(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as pastes:
+            async with Pastes(PASTEBIN_API_DEV_KEY) as pastes:
+                paste_key = await pastes.create_paste("some paste content")
+                print(paste_key)
+
+
+        asyncio.run(main())
+        ```
 
 When making a paste, you can determine many things related
 to the paste. Such as paste title, paste format or syntax
@@ -195,25 +262,48 @@ folder_key.
 paste title is just a string in general, you can give the
 paste title with the `title` parameter.
 
-```python
-await paspybin.pastes.create_paste("hello content", "Nice Title")
-```
+=== "Facade"
+
+    ```python
+    await paspybin.pastes.create_paste("hello content", "Nice Title")
+    ```
+
+=== "Non Facade"
+
+    ```python
+    await pastes.create_paste("hello content", "Nice Title")
+    ```
 
 Then to determine format or syntax highlighting, paste
 exposure or visibility, and when a paste expires, we provide
 an enum class that can be easily used. All three have
 parameters `format`, `visibility`, and `expire`.
 
-```python
-from paspybin.enums import Expire, Format, Visibility
-...
-await paspybin.pastes.create_paste(
-    "hello content",
-    format=Format.NONE,
-    visibility=Visibility.PUBLIC,
-    expire=Expire.NEVER,
-)
-```
+=== "Facade"
+
+    ```python
+    from paspybin.enums import Expire, Format, Visibility
+    ...
+    await paspybin.pastes.create_paste(
+        "hello content",
+        format=Format.NONE,
+        visibility=Visibility.PUBLIC,
+        expire=Expire.NEVER,
+    )
+    ```
+
+=== "Non Facade"
+
+    ```python
+    from paspybin.enums import Expire, Format, Visibility
+    ...
+    await pastes.create_paste(
+        "hello content",
+        format=Format.NONE,
+        visibility=Visibility.PUBLIC,
+        expire=Expire.NEVER,
+    )
+    ```
 
 The code example above also shows the default values ​for
 the three parameters provided by the Pastebin API if
@@ -226,9 +316,17 @@ to paste it and put it in a folder owned by the user, you
 can provide the folder key to the `folder_key` parameter
 and of course you have to log in first.
 
-```python
-await paspybin.pastes.create_paste("hello content", folder_key="folder key here")
-```
+=== "Facade"
+
+    ```python
+    await paspybin.pastes.create_paste("hello content", folder_key="folder key here")
+    ```
+
+=== "Non Facade"
+
+    ```python
+    await pastes.create_paste("hello content", folder_key="folder key here")
+    ```
 
 ## Paste API
 
@@ -244,68 +342,115 @@ the Paste API is logged in.
 ### get_content
 
 get_content is used to get the content of
-paste owned by a user. Read get_content
-[reference](reference/api.md/#paspybin.api.Paste.get_content)
+paste owned by a user. Read
+[get_content reference](reference/api.md/#paspybin.api.Paste.get_content)
 for more details.
 
-Code example:
+!!! example
 
-```python
-import asyncio
-import os
+    === "Facade"
 
-from paspybin import Paspybin
+        ```python
+        import asyncio
+        import os
 
-PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+        from paspybin import Paspybin
 
-
-async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
-        async for paste in paspybin.pastes.get_all():
-            paste_content = await paste.get_content()
-            print(paste_content)
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
-asyncio.run(main())
-```
+        async def main():
+            async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
+                async for paste in paspybin.pastes.get_all():
+                    paste_content = await paste.get_content()
+                    print(paste_content)
 
-Example output:
 
-```console
-Just some paste content here
-```
+        asyncio.run(main())
+        ```
+
+    === "Non Facade"
+
+        ```python
+        import asyncio
+        import os
+
+        from paspybin.api import Pastes
+
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+
+
+        async def main():
+            async with Pastes(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as pastes:
+                async for paste in pastes.get_all():
+                    paste_content = await paste.get_content()
+                    print(paste_content)
+
+
+        asyncio.run(main())
+        ```
+
+    Output:
+
+    ```console
+    Just some paste content here
+    ```
 
 ### delete
 
 delete is used to delete paste owned by a user.
-Read delete
-[reference](reference/api.md/#paspybin.api.Paste.delete)
+Read
+[delete reference](reference/api.md/#paspybin.api.Paste.delete)
 for more details.
 
-Code example:
+!!! example
 
-!!! warning
-    This code will delete all your pastes!
+    !!! warning
+        This code will delete all your pastes!
 
-```python
-import asyncio
-import os
+    === "Facade"
 
-from paspybin import Paspybin
+        ```python
+        import asyncio
+        import os
 
-PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+        from paspybin import Paspybin
 
-
-async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
-        async for paste in paspybin.pastes.get_all():
-            paste.delete()
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
-asyncio.run(main())
-```
+        async def main():
+            async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
+                async for paste in paspybin.pastes.get_all():
+                    paste.delete()
+
+
+        asyncio.run(main())
+        ```
+
+    === "Non Facade"
+
+        ```python
+        import asyncio
+        import os
+
+        from paspybin.api import Pastes
+
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+
+
+        async def main():
+            async with Pastes(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as pastes:
+                async for paste in pastes.get_all():
+                    paste.delete()
+
+
+        asyncio.run(main())
+        ```
 
 ## User API
 
@@ -314,33 +459,56 @@ There is only one API available for user namely get_detail.
 ### get_detail
 
 get_detail is used to get user details from the account
-that is currently logged in. Read get_detail
-[reference](reference/api.md/#paspybin.api.User.get_detail)
+that is currently logged in. Read
+[get_detail reference](reference/api.md/#paspybin.api.User.get_detail)
 for more details.
 
-Code example:
+!!! example
 
-```python
-import asyncio
-import os
+    === "Facade"
 
-from paspybin import Paspybin
+        ```python
+        import asyncio
+        import os
 
-PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+        from paspybin import Paspybin
 
-
-async def main():
-    async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
-        user_detail = await paspybin.user.get_detail()
-        print(user_detail)
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
 
 
-asyncio.run(main())
-```
+        async def main():
+            async with Paspybin(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as paspybin:
+                user_detail = await paspybin.user.get_detail()
+                print(user_detail)
 
-Example output:
 
-```console
-User(name='paspybin', format=<Format.NONE: 'text'>, expiration=<Expire.NEVER: 'N'>, avatar_url='@themes/img/guest.png', private=<Visibility.PUBLIC: 0>, website=None, email='paspybin@email.com', location=None, account_type=<Type.NORMAL: 0>)
-```
+        asyncio.run(main())
+        ```
+
+    === "Non Facade"
+
+        ```python
+        import asyncio
+        import os
+
+        from paspybin.api import User
+
+        PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
+        PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
+
+
+        async def main():
+            async with User(PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY) as user:
+                user_detail = await user.get_detail()
+                print(user_detail)
+
+
+        asyncio.run(main())
+        ```
+
+    Output:
+
+    ```console
+    User(name='paspybin', format=<Format.NONE: 'text'>, expiration=<Expire.NEVER: 'N'>, avatar_url='@themes/img/guest.png', private=<Visibility.PUBLIC: 0>, website=None, email='paspybin@email.com', location=None, account_type=<Type.NORMAL: 0>)
+    ```

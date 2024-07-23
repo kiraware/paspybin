@@ -34,11 +34,11 @@ class Pastes(API):
             >>> import os
             >>> from paspybin import Paspybin
             >>> PASTEBIN_API_DEV_KEY = os.environ["PASTEBIN_API_DEV_KEY"]
-            >>> PASTEBIN_USERNAME = os.environ["PASTEBIN_USERNAME"]
-            >>> PASTEBIN_PASSWORD = os.environ["PASTEBIN_PASSWORD"]
+            >>> PASTEBIN_API_USER_KEY = os.environ["PASTEBIN_API_USER_KEY"]
             >>> async def main():
-            ...     async with Paspybin(PASTEBIN_API_DEV_KEY) as paspybin:
-            ...         await paspybin.login(PASTEBIN_USERNAME, PASTEBIN_PASSWORD)
+            ...     async with Paspybin(
+            ...         PASTEBIN_API_DEV_KEY, PASTEBIN_API_USER_KEY
+            ...     ) as paspybin:
             ...         async for paste in paspybin.pastes.get_all():
             ...             # do what you want to do with paste here
             ...             pass

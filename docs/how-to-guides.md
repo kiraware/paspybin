@@ -113,13 +113,20 @@ For example, environment variables are found in the `.env.example`
 file. You can change the value according to what you have and save
 it in the root of the project directory with the file name `.env`.
 
-We have a doctest in src that we don't run tests by default because
-it's for testing code examples in the docstring. Because the code
-example uses real API calls without mocks, it can cause the test to
-reach the API call rate limit. To run doctest, just open the
-pyproject.toml file and look in the configuration for pytest in the
-testpaths section there is only a tests folder, you can add the src
-folder and run the test normally to run doctest in src.
+To set up environment variables we need `PASTEBIN_API_DEV_KEY`,
+`PASTEBIN_USERNAME`, and `PASTEBIN_PASSWORD`. `PASTEBIN_API_DEV_KEY`
+belongs to `PASTEBIN_USERNAME`. Then we also need `PASTEBIN_API_USER_KEY`,
+to get it we can make a login() API call. Please remember that
+`PASTEBIN_API_USER_KEY` MUST NOT belong to `PASTEBIN_USERNAME`,
+so simply we have to have two pastebin accounts.
+
+We have a doctest in src that we don't run it by default because
+it's for testing code examples in the docstring. The code example
+uses real API calls without mocks, it can cause the test to reach
+the API call rate limit. To run doctest, just open the `pyproject.toml`
+file and look at the `tool.pytest.ini_options` section in the
+`testpaths` configuration there is only a `tests` folder, you can
+add the `src` folder and run the test normally to run doctest in src.
 
 ### Documenting
 

@@ -45,6 +45,7 @@ jobs:
       - name: Test with pytest
         env:
           PASTEBIN_API_DEV_KEY: ${{ secrets.PASTEBIN_API_DEV_KEY }}
+          PASTEBIN_API_USER_KEY: ${{ secrets.PASTEBIN_API_USER_KEY }}
           PASTEBIN_USERNAME: ${{ secrets.PASTEBIN_USERNAME }}
           PASTEBIN_PASSWORD: ${{ secrets.PASTEBIN_PASSWORD }}
         run: poetry run pytest --cov=src --cov-report=xml

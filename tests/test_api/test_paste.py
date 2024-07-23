@@ -112,13 +112,29 @@ async def test_paste_delete():
         )
 
 
-async def test_paste_delete_without_dev_key():
+async def test_direct_paste_delete():
+    with patch("paspybin.api.api.ClientSession.post") as mocked:
+        async with Paste("paste_key", dev_key="dev_key", user_key="user_key") as paste:
+            await paste.delete()
+
+        mocked.assert_called_with(
+            "/api/api_post.php",
+            data={
+                "api_dev_key": "dev_key",
+                "api_option": "delete",
+                "api_paste_key": "paste_key",
+                "api_user_key": "user_key",
+            },
+        )
+
+
+async def test_direct_paste_delete_without_dev_key():
     async with Paste("paste_key") as paste:
         with pytest.raises(ValueError, match="dev_key is required to use this method"):
             await paste.delete()
 
 
-async def test_paste_delete_with_guest():
+async def test_direct_paste_delete_with_guest():
     async with Paste("paste_key", dev_key="dev_key") as paste:
         with pytest.raises(
             ValueError, match="only logged in users can use this method"
@@ -153,6 +169,26 @@ async def test_paste_delete_fail():
 
             with pytest.raises(PaspybinBadAPIRequestError, match="err_msg"):
                 await pastes[0].delete()
+
+        mocked.assert_called_with(
+            "/api/api_post.php",
+            data={
+                "api_dev_key": "dev_key",
+                "api_option": "delete",
+                "api_paste_key": "paste_key",
+                "api_user_key": "user_key",
+            },
+        )
+
+
+async def test_direct_paste_delete_fail():
+    with patch("paspybin.api.api.ClientSession.post") as mocked:
+        async with Paste("paste_key", dev_key="dev_key", user_key="user_key") as paste:
+            mocked.return_value.__aenter__.return_value.text.return_value = "err_msg"
+            mocked.return_value.__aenter__.return_value.ok = False
+
+            with pytest.raises(PaspybinBadAPIRequestError, match="err_msg"):
+                await paste.delete()
 
         mocked.assert_called_with(
             "/api/api_post.php",
@@ -203,13 +239,32 @@ async def test_paste_get_content():
         )
 
 
-async def test_paste_get_content_without_dev_key():
+async def test_direct_paste_get_content():
+    with patch("paspybin.api.api.ClientSession.post") as mocked:
+        async with Paste("paste_key", dev_key="dev_key", user_key="user_key") as paste:
+            mocked.return_value.__aenter__.return_value.text.return_value = "test"
+            paste_content = await paste.get_content()
+
+            assert paste_content == "test"
+
+        mocked.assert_called_with(
+            "/api/api_raw.php",
+            data={
+                "api_dev_key": "dev_key",
+                "api_option": "show_paste",
+                "api_paste_key": "paste_key",
+                "api_user_key": "user_key",
+            },
+        )
+
+
+async def test_direct_paste_get_content_without_dev_key():
     async with Paste("paste_key") as paste:
         with pytest.raises(ValueError, match="dev_key is required to use this method"):
             await paste.get_content()
 
 
-async def test_paste_get_content_with_guest():
+async def test_direct_paste_get_content_with_guest():
     async with Paste("paste_key", dev_key="dev_key") as paste:
         with pytest.raises(
             ValueError, match="only logged in users can use this method"
@@ -244,6 +299,26 @@ async def test_paste_get_content_fail():
 
             with pytest.raises(PaspybinBadAPIRequestError, match="err_msg"):
                 await pastes[0].get_content()
+
+        mocked.assert_called_with(
+            "/api/api_raw.php",
+            data={
+                "api_dev_key": "dev_key",
+                "api_option": "show_paste",
+                "api_paste_key": "paste_key",
+                "api_user_key": "user_key",
+            },
+        )
+
+
+async def test_direct_paste_get_content_fail():
+    with patch("paspybin.api.api.ClientSession.post") as mocked:
+        async with Paste("paste_key", dev_key="dev_key", user_key="user_key") as paste:
+            mocked.return_value.__aenter__.return_value.text.return_value = "err_msg"
+            mocked.return_value.__aenter__.return_value.ok = False
+
+            with pytest.raises(PaspybinBadAPIRequestError, match="err_msg"):
+                await paste.get_content()
 
         mocked.assert_called_with(
             "/api/api_raw.php",

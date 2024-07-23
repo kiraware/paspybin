@@ -120,13 +120,13 @@ to get it we can make a login() API call. Please remember that
 `PASTEBIN_API_USER_KEY` MUST NOT belong to `PASTEBIN_USERNAME`,
 so simply we have to have two pastebin accounts.
 
-We have a doctest in src that we don't run tests by default because
-it's for testing code examples in the docstring. Because the code
-example uses real API calls without mocks, it can cause the test to
-reach the API call rate limit. To run doctest, just open the
-pyproject.toml file and look in the configuration for pytest in the
-testpaths section there is only a tests folder, you can add the src
-folder and run the test normally to run doctest in src.
+We have a doctest in src that we don't run it by default because
+it's for testing code examples in the docstring. The code example
+uses real API calls without mocks, it can cause the test to reach
+the API call rate limit. To run doctest, just open the `pyproject.toml`
+file and look at the `tool.pytest.ini_options` section in the
+`testpaths` configuration there is only a `tests` folder, you can
+add the `src` folder and run the test normally to run doctest in src.
 
 ### Documenting
 

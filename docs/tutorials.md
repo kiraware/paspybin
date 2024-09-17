@@ -33,9 +33,10 @@ for more details.
 
         Only one key can be active at the same time for the same user.
         This key does not expire, unless a new one is generated.
-        Hence it's better to store the user_key somewhere so that you
-        can use it multiple times to avoid API rate limiting caused by
-        login called multiple times.
+
+    Hence it's better to store the user_key somewhere so that you
+    can use it multiple times to avoid API rate limiting caused by
+    login called multiple times.
 
 !!! example
 

@@ -15,7 +15,7 @@ def test_parse_pastes_with_invalid_fields_length():
             PaspybinParseError,
             match="one or more fields not found",
         ):
-            for paste in parse_pastes("<paste></paste>"):
+            for _paste in parse_pastes("<paste></paste>"):
                 pass
 
 
@@ -45,5 +45,5 @@ def test_parse_pastes_with_invalid_field(index, err_msg):
             PaspybinParseError,
             match=err_msg,
         ):
-            for paste in parse_pastes("<paste></paste>"):
+            for _paste in parse_pastes("<paste></paste>"):
                 pass

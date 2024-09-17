@@ -83,6 +83,7 @@ And done! You can make your changes and test thoroughly.
 Then push your branch to your fork and submit a pull request.
 
 !!! tip
+
     If you have installed [poethepoet](https://poethepoet.natn.io/index.html)
     globally, then you can use the command below only with
     `poe lint`, `poe format`, etc instead of `poetry run poe lint`,

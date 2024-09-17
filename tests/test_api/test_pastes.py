@@ -122,14 +122,14 @@ async def test_direct_pastes_get_all_but_empty():
 async def test_pastes_get_all_without_dev_key():
     async with Paspybin() as paspybin:
         with pytest.raises(ValueError, match="dev_key is required to use this method"):
-            async for paste in paspybin.pastes.get_all():
+            async for _paste in paspybin.pastes.get_all():
                 pass
 
 
 async def test_direct_pastes_get_all_without_dev_key():
     async with Pastes() as pastes:
         with pytest.raises(ValueError, match="dev_key is required to use this method"):
-            async for paste in pastes.get_all():
+            async for _paste in pastes.get_all():
                 pass
 
 
@@ -138,7 +138,7 @@ async def test_pastes_get_all_with_guest():
         with pytest.raises(
             ValueError, match="only logged in users can use this method"
         ):
-            async for paste in paspybin.pastes.get_all():
+            async for _paste in paspybin.pastes.get_all():
                 pass
 
 
@@ -147,7 +147,7 @@ async def test_direct_pastes_get_all_with_guest():
         with pytest.raises(
             ValueError, match="only logged in users can use this method"
         ):
-            async for paste in pastes.get_all():
+            async for _paste in pastes.get_all():
                 pass
 
 
@@ -172,7 +172,7 @@ async def test_pastes_get_all_of_logged_in_user_when_limit_is_valid():
                 "</paste>"
             )
 
-            async for paste in paspybin.pastes.get_all(50):
+            async for _paste in paspybin.pastes.get_all(50):
                 pass
 
         mocked.assert_called_with(
@@ -204,7 +204,7 @@ async def test_direct_pastes_get_all_of_logged_in_user_when_limit_is_valid():
                 "</paste>"
             )
 
-            async for paste in pastes.get_all(50):
+            async for _paste in pastes.get_all(50):
                 pass
 
         mocked.assert_called_with(
@@ -228,7 +228,7 @@ async def test_pastes_get_all_of_logged_in_user_but_limit_is_invalid(limit):
             with pytest.raises(
                 ValueError, match="limit value must be between 1 and 1000"
             ):
-                async for paste in paspybin.pastes.get_all(limit):
+                async for _paste in paspybin.pastes.get_all(limit):
                     pass
 
 
@@ -236,7 +236,7 @@ async def test_pastes_get_all_of_logged_in_user_but_limit_is_invalid(limit):
 async def test_direct_pastes_get_all_of_logged_in_user_but_limit_is_invalid(limit):
     async with Pastes("dev_key", "user_key") as pastes:
         with pytest.raises(ValueError, match="limit value must be between 1 and 1000"):
-            async for paste in pastes.get_all(limit):
+            async for _paste in pastes.get_all(limit):
                 pass
 
 
@@ -250,7 +250,7 @@ async def test_pastes_get_all_fail():
             mocked.return_value.__aenter__.return_value.ok = False
 
             with pytest.raises(PaspybinBadAPIRequestError, match="err_msg"):
-                async for paste in paspybin.pastes.get_all():
+                async for _paste in paspybin.pastes.get_all():
                     pass
 
         mocked.assert_called_with(
@@ -270,7 +270,7 @@ async def test_direct_pastes_get_all_fail():
             mocked.return_value.__aenter__.return_value.ok = False
 
             with pytest.raises(PaspybinBadAPIRequestError, match="err_msg"):
-                async for paste in pastes.get_all():
+                async for _paste in pastes.get_all():
                     pass
 
         mocked.assert_called_with(

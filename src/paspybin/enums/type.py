@@ -12,8 +12,8 @@ class Type(IntEnum):
     An int enum class that define valid account type.
 
     Attributes:
-        NORMAL: `0`
-        PRO: `1`
+        NORMAL (int): `0`
+        PRO (int): `1`
 
     Examples:
         >>> Type(0)
@@ -28,5 +28,5 @@ class Type(IntEnum):
         0
     """
 
-    NORMAL: int = 0
-    PRO: int = 1
+    NORMAL = 0
+    PRO = 1

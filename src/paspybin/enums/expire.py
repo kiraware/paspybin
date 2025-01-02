@@ -12,15 +12,15 @@ class Expire(StrEnum):
     A str enum class that define valid expiration date.
 
     Attributes:
-        NEVER: `"N"`, never expire
-        TEN_MINUTES: `"10M"`, expire after ten minutes
-        ONE_HOUR: `"1H"`, expire after one hour
-        ONE_DAY: `"1D"`, expire after one day
-        ONE_WEEK: `"1W"`, expire after one week
-        TWO_WEEKS: `"2W"`, expire after two weeks
-        ONE_MONTH: `"1M"`, expire after one month
-        SIX_MONTHS: `"6M"`, expire after six month
-        ONE_YEAR: `"1Y"`, expire after one year
+        NEVER (str): `"N"`, never expire
+        TEN_MINUTES (str): `"10M"`, expire after ten minutes
+        ONE_HOUR (str): `"1H"`, expire after one hour
+        ONE_DAY (str): `"1D"`, expire after one day
+        ONE_WEEK (str): `"1W"`, expire after one week
+        TWO_WEEKS (str): `"2W"`, expire after two weeks
+        ONE_MONTH (str): `"1M"`, expire after one month
+        SIX_MONTHS (str): `"6M"`, expire after six month
+        ONE_YEAR (str): `"1Y"`, expire after one year
 
     Examples:
         >>> Expire("N")
@@ -35,12 +35,12 @@ class Expire(StrEnum):
         N
     """
 
-    NEVER: str = "N"
-    TEN_MINUTES: str = "10M"
-    ONE_HOUR: str = "1H"
-    ONE_DAY: str = "1D"
-    ONE_WEEK: str = "1W"
-    TWO_WEEKS: str = "2W"
-    ONE_MONTH: str = "1M"
-    SIX_MONTHS: str = "6M"
-    ONE_YEAR: str = "1Y"
+    NEVER = "N"
+    TEN_MINUTES = "10M"
+    ONE_HOUR = "1H"
+    ONE_DAY = "1D"
+    ONE_WEEK = "1W"
+    TWO_WEEKS = "2W"
+    ONE_MONTH = "1M"
+    SIX_MONTHS = "6M"
+    ONE_YEAR = "1Y"

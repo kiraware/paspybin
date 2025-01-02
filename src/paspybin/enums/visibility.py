@@ -12,9 +12,9 @@ class Visibility(IntEnum):
     An int enum class that define valid visibility.
 
     Attributes:
-        PUBLIC: `0`
-        UNLISTED: `1`
-        PRIVATE: `2`
+        PUBLIC (int): `0`
+        UNLISTED (int): `1`
+        PRIVATE (int): `2`
 
     Examples:
         >>> Visibility(0)
@@ -29,6 +29,6 @@ class Visibility(IntEnum):
         0
     """
 
-    PUBLIC: int = 0
-    UNLISTED: int = 1
-    PRIVATE: int = 2
+    PUBLIC = 0
+    UNLISTED = 1
+    PRIVATE = 2
